@@ -4,7 +4,7 @@ from PIL import Image
 import pandas as pd
 import os
 # FastAPI URL
-GENERATE_CAPTION_URL = "https://python-intern.onrender.com/generate_caption"
+GENERATE_CAPTION_URL = "http://65.0.131.103/generate_caption"
 
 # Create the Streamlit interface
 st.set_page_config(page_title="Generate jwellery descriptions", layout="wide")
