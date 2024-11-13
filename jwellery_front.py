@@ -3,7 +3,9 @@ import requests
 from PIL import Image
 import pandas as pd
 import os
+import json
 # FastAPI URL
+
 GENERATE_CAPTION_URL = "http://65.0.131.103/generate_caption"
 
 # Create the Streamlit interface
@@ -68,10 +70,11 @@ if st.button("Generate Captions"):
     
 
     if st.session_state.images:
+        sj=json.dumps(selections)
         # Prepare images for the request (limited to 100 images)
-        files = [('files', (img.name, img, img.type)) for img in st.session_state.images]
+        files = [('files', (img.name, img, img.type)) for img in st.session_state.images]+[('types',sj)]
         # Send POST request to FastAPI to generate captions
-        response = requests.post(GENERATE_CAPTION_URL, files=files,json={"types":selections})
+        response = requests.post(GENERATE_CAPTION_URL, files=files)
 
         if response.status_code == 200:
             output_file = "output.csv"
