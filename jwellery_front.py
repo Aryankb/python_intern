@@ -22,22 +22,56 @@ if uploaded_files:
         # Avoid adding duplicates
         if uploaded_file not in st.session_state.images:
             st.session_state.images.append(uploaded_file)
+headings = [
+    "Elegance",
+    "Charm",
+    "Luxury",
+    "Modernity",
+    "Timelessness",
+    "Delicacy",
+    "Boldness",
+    "Romance",
+    "Earthiness",
+    "Artistry"
+    ]
+jewelry_styles = {
+    "Elegance": "Jewelry that embodies sophistication, adding a refined touch suitable for formal settings.",
+    "Charm": "Pieces that convey a sense of warmth and appeal, making them endearing and delightful.",
+    "Luxury": "Reflects an aura of exclusivity and high quality, perfect for those seeking something special.",
+    "Modernity": "Captures contemporary styles, appealing to those who appreciate current trends and innovation.",
+    "Timelessness": "Designs that maintain appeal across eras, suitable for those who value enduring style.",
+    "Delicacy": "Jewelry with a gentle and subtle quality, often associated with a soft, graceful appearance.",
+    "Boldness": "Makes a statement with a strong presence, ideal for those who prefer impactful designs.",
+    "Romance": "Pieces that evoke a sense of love and sentimentality, often carrying a romantic or heartfelt appeal.",
+    "Earthiness": "Connects to natural elements or grounded aesthetics, appealing to those with a down-to-earth style.",
+    "Artistry": "Showcases creativity and craftsmanship, appealing to individuals who appreciate unique designs."
+}
 
+selections = [] 
 # Show uploaded images with the option to remove them
 if st.session_state.images:
     cols = st.columns(5)  # Create a column for each image
     for i, img in enumerate(st.session_state.images):
         with cols[i%5]:
             st.image(img, caption=img.name, width=150)
+            selected_option = st.selectbox(
+                f"Choose option for Image {img.name}",
+                headings,
+                index=headings.index("Elegance"),
+                key=f"select_{img.name}"
+            )
+            selections.append(jewelry_styles[selected_option]) 
             
 
 # Button to generate captions
 if st.button("Generate Captions"):
+    
+
     if st.session_state.images:
         # Prepare images for the request (limited to 100 images)
         files = [('files', (img.name, img, img.type)) for img in st.session_state.images]
         # Send POST request to FastAPI to generate captions
-        response = requests.post(GENERATE_CAPTION_URL, files=files)
+        response = requests.post(GENERATE_CAPTION_URL, files=files,types={"types":selections})
 
         if response.status_code == 200:
             output_file = "output.csv"
