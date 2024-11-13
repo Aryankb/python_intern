@@ -40,8 +40,8 @@ if submitted:
         data = {'prompt': prompt}
         
         # Send a POST request to FastAPI
-        response = requests.post("https://python-intern.onrender.com/process-image-and-prompt/", files=files, data=data)
-        r2 = requests.get("https://python-intern.onrender.com/download/")
+        response = requests.post("http://65.0.131.103/process-image-and-prompt/", files=files, data=data)
+        r2 = requests.get("http://65.0.131.103/download/")
         if response.status_code == 200:
             # Save the CSV file locally
             
