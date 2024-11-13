@@ -67,7 +67,7 @@ if submitted:
             with open(output_extra, "rb") as f:
                 st.download_button("Download Extra Details CSV", f, file_name="output_extra.csv", mime="text/csv")
             # Optionally clean up the file after download
-            os.remove(output_file)
+            # os.remove(output_file)
             # os.remove(output_extra)
 
 # Check if the response exists to show modification options
@@ -113,5 +113,5 @@ if st.session_state.df is not None:
         with open("output_extra.csv", "rb") as f:
             st.download_button("Download Extra Details CSV", f, file_name="output_extra.csv", mime="text/csv")
         # Optionally clean up the file after download
-        os.remove(output_file)
-        os.remove("output_extra.csv")
+        # os.remove(output_file)
+        # os.remove("output_extra.csv")
