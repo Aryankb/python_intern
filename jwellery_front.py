@@ -74,7 +74,7 @@ if st.button("Generate Captions"):
         # Prepare images for the request (limited to 100 images)
         files = [('files', (img.name, img, img.type)) for img in st.session_state.images]
         # Send POST request to FastAPI to generate captions
-        response = requests.post(GENERATE_CAPTION_URL, files=files,params={"style":sj})
+        response = requests.post(GENERATE_CAPTION_URL, files=files,data={"style":sj})
 
         if response.status_code == 200:
             output_file = "output.csv"
