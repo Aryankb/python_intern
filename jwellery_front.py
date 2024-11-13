@@ -68,7 +68,7 @@ if st.session_state.images:
 # Button to generate captions
 if st.button("Generate Captions"):
     
-
+    print(selections)
     if st.session_state.images:
         sj=json.dumps(selections)
         # Prepare images for the request (limited to 100 images)
